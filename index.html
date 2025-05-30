@@ -299,20 +299,30 @@
 
   <script>
     const form = document.getElementById('preorder-form');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = form.email.value.trim();
-
-      if (!email) {
-        alert('Please enter a valid email.');
-        return;
-      }
-
-      // TODO: Replace with your email capture backend or service integration
-      alert(`Thanks! You've been added to the pre-order list:\n${email}`);
-
-      form.reset();
+    form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = form.email.value.trim();
+  if (!email) {
+    alert('Please enter a valid email.');
+    return;
+  }
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ email })
     });
+    if (response.ok) {
+      alert(`Thanks! You've been added to the pre-order list:\n${email}`);
+      form.reset();
+    } else {
+      alert('Oops! Something went wrong. Please try again.');
+    }
+  } catch (error) {
+    alert('Network error. Please try again.');
+  }
+});
+
   </script>
 </body>
 </html>
