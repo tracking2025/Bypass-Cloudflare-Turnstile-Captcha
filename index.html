@@ -6,7 +6,6 @@
   <title>Cloudflare Bypass Pro — Pre-Order Now</title>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
   <style>
-    /* Your existing styles */
     body {
       margin: 0;
       font-family: 'Fira Code', monospace;
@@ -235,7 +234,7 @@
   <div class="container">
     <header>
       <h1>Cloudflare Bypass Pro</h1>
-      <p>The most reliable tool to bypass Cloudflare protections — automated, stealthy, and native Node.js.</p>
+      <p>The most reliable tool to bypass Cloudflare protections — automated, stealthy, and native Node.js. <br>No Subscriptions needed.</p>
     </header>
 
     <section class="grid">
@@ -273,13 +272,13 @@
     </section>
 
     <section class="preorder">
-      <h2>Pre-Order Now</h2>
+      <h2>Join Pre-Order List (No Payment Required)</h2>
       <p class="lead">Secure your early bird price before launch!</p>
       <p class="price">
-        $9.99 <small>Pre-order price — Launch price $29.99 (from 09 June 2025)</small>
+        $9.99 (Lifetime)<small>Pre-order price — Launch price $29.99 (from 09 June 2025)</small>
       </p>
-      <form id="preorder-form" action="https://formspree.io/f/xeokjzwv" method="POST">
-        <input type="hidden" name="_next" value="https://tracking2025.github.io/thank-you.html" />
+      <form id="preorder-form" action="https://formspree.io/f/xeokjzwv"
+  method="POST">
         <input
           type="email"
           name="email"
@@ -297,5 +296,33 @@
   <footer>
     &copy; 2025 Cloudflare Bypass Pro — Built for developers and automation pros.
   </footer>
+
+  <script>
+    const form = document.getElementById('preorder-form');
+    form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = form.email.value.trim();
+  if (!email) {
+    alert('Please enter a valid email.');
+    return;
+  }
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ email })
+    });
+    if (response.ok) {
+      alert(`Thanks! You've been added to the pre-order list:\n${email}`);
+      form.reset();
+    } else {
+      alert('Oops! Something went wrong. Please try again.');
+    }
+  } catch (error) {
+    alert('Network error. Please try again.');
+  }
+});
+
+  </script>
 </body>
 </html>
